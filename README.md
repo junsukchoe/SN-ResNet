@@ -1,1 +1,1 @@
-SN-ResNet
+SN-VGG
