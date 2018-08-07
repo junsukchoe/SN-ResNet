@@ -7,10 +7,6 @@ from tensorpack import *
 from tensorpack.tfutils.tower import get_current_tower_context
 from tensorpack.tfutils.argscope import argscope, get_arg_scope
 from tensorpack.tfutils.summary import *
-from tensorpack.models import (
-    Conv2D, MaxPooling, GlobalAvgPooling, BatchNorm, BNReLU, FullyConnected)
-from imagenet_utils import random_crop
-
 
 def GroupNorm(x, group, gamma_initializer=tf.constant_initializer(1.)):
     """
