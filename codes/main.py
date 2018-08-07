@@ -72,13 +72,15 @@ def eval_on_ILSVRC12(model, sessinit, dataflow):
     print("Top5 Error: {}".format(acc5.ratio))
 
 if __name__ == '__main__':
-    args = get_args()
 
-    DEPTH = args.depth
+    # For Multi-GPU
+    args = get_args()
     nr_gpu = get_nr_gpu()
     TOTAL_BATCH_SIZE = int(args.batch)
     BATCH_SIZE = TOTAL_BATCH_SIZE // nr_gpu
     args.batch = BATCH_SIZE
+
+    # Model init
     model = Model()
 
     if args.eval:
