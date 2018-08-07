@@ -1,0 +1,9 @@
+train_log/
+__pycache__/
+result/
+.vscode/
+.idea/
+.ideas/
+codes/__pycache__
+.DS_Store
+codes/.DS_Store
