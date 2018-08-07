@@ -9,7 +9,6 @@ from tensorpack.tfutils.summary import *
 from tensorpack.models import (
     Conv2D, MaxPooling, GlobalAvgPooling, BatchNorm, BNReLU, FullyConnected)
 
-from utils import random_crop, CropPooling
 from tensorpack.tfutils.tower import get_current_tower_context
 from ops import *
 
