@@ -46,6 +46,7 @@ def get_args():
     
     # Test
     parser.add_argument('--load', help='load model')
+    parser.add_argument('--eval', help='test', action='store_true')
 
 
     global args
