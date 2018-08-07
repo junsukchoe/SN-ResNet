@@ -50,8 +50,6 @@ def get_args():
 
     global args
     args = parser.parse_args()
-    if args.crop is not None:
-        args.crop = to_bool(args.crop, 5)
     if args.gpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
     return args
