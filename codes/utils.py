@@ -100,13 +100,8 @@ def fbresnet_augmentor(isTrain, option):
                         crop_area_fraction=option.mincrop,
                         crop_area_max=option.maxcrop)
             ]
-        elif option.has:
-            print ('Use HnS Augmentation')
-            augmentors = [
-                HaS()
-            ]
         else:
-            print ('Do not use GR or HnS')
+            print ('Do not use GR')
             augmentors = [
 
             ]
