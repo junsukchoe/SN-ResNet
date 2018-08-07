@@ -103,7 +103,8 @@ def fbresnet_augmentor(isTrain, option):
         else:
             print ('Do not use GR')
             augmentors = [
-
+                    imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
+                    imgaug.CenterCrop((option.final_size, option.final_size))
             ]
         
         basic = [
@@ -127,15 +128,10 @@ def fbresnet_augmentor(isTrain, option):
         augmentors.extend(basic)
 
     else:
-        if option.final_size == 64:
-            augmentors = [
-                imgaug.CenterCrop((option.final_size,option.final_size))
-            ]
-        elif option.final_size == 224:
-            augmentors = [
-                imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
-                imgaug.CenterCrop((option.final_size, option.final_size)),
-            ]
+        augmentors = [
+            imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
+            imgaug.CenterCrop((option.final_size, option.final_size)),
+        ]
     return augmentors
 
 
