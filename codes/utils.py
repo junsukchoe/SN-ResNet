@@ -96,9 +96,7 @@ def fbresnet_augmentor(isTrain, option):
         if option.GR:
             print ('Use GoogleNetResize Augmentation')
             augmentors = [
-                GoogleNetResize(target_shape=option.final_size,
-                        crop_area_fraction=option.mincrop,
-                        crop_area_max=option.maxcrop)
+                GoogleNetResize(target_shape=option.final_size)
             ]
         else:
             print ('Do not use GR')
