@@ -61,7 +61,7 @@ def Spec_FullyConnected(name,
         return mul
 
 def Spec_Conv2D(name, 
-            input_, output_dim, kernel_shape=3, strides=1, 
+            input_, output_dim, kernel_shape=3, stride=1, 
             use_bias=True, stddev=0.02, sn=True, padding='SAME'):
     with tf.variable_scope(name):
         w = tf.get_variable('W', 
