@@ -7,10 +7,6 @@ from tensorpack import *
 from tensorpack.tfutils.tower import get_current_tower_context
 from tensorpack.tfutils.argscope import argscope, get_arg_scope
 from tensorpack.tfutils.summary import *
-from tensorpack.models import (
-    Conv2D, MaxPooling, GlobalAvgPooling, BatchNorm, BNReLU, FullyConnected)
-from imagenet_utils import random_crop
-
 
 def GroupNorm(x, group, gamma_initializer=tf.constant_initializer(1.)):
     """
@@ -65,8 +61,10 @@ def Spec_FullyConnected(name,
         return mul
 
 def Spec_Conv2D(name, 
-            input_, output_dim, kernel_shape=3, strides=1, 
+            input_, output_dim, kernel_shape=3, stride=1, 
             use_bias=True, stddev=0.02, sn=True, padding='SAME'):
+    if sn:
+        print('Spectral Normalization Activated.')
     with tf.variable_scope(name):
         w = tf.get_variable('W', 
                 [kernel_shape, kernel_shape, input_.get_shape()[-1], output_dim],

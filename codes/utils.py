@@ -96,19 +96,13 @@ def fbresnet_augmentor(isTrain, option):
         if option.GR:
             print ('Use GoogleNetResize Augmentation')
             augmentors = [
-                GoogleNetResize(target_shape=option.final_size,
-                        crop_area_fraction=option.mincrop,
-                        crop_area_max=option.maxcrop)
-            ]
-        elif option.has:
-            print ('Use HnS Augmentation')
-            augmentors = [
-                HaS()
+                GoogleNetResize(target_shape=option.final_size)
             ]
         else:
-            print ('Do not use GR or HnS')
+            print ('Do not use GR')
             augmentors = [
-
+                    imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
+                    imgaug.CenterCrop((option.final_size, option.final_size))
             ]
         
         basic = [
@@ -132,15 +126,10 @@ def fbresnet_augmentor(isTrain, option):
         augmentors.extend(basic)
 
     else:
-        if option.final_size == 64:
-            augmentors = [
-                imgaug.CenterCrop((option.final_size,option.final_size))
-            ]
-        elif option.final_size == 224:
-            augmentors = [
-                imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
-                imgaug.CenterCrop((option.final_size, option.final_size)),
-            ]
+        augmentors = [
+            imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
+            imgaug.CenterCrop((option.final_size, option.final_size)),
+        ]
     return augmentors
 
 

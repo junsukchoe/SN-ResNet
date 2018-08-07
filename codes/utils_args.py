@@ -46,12 +46,11 @@ def get_args():
     
     # Test
     parser.add_argument('--load', help='load model')
+    parser.add_argument('--eval', help='test', action='store_true')
 
 
     global args
     args = parser.parse_args()
-    if args.crop is not None:
-        args.crop = to_bool(args.crop, 5)
     if args.gpu:
         os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
     return args
