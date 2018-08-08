@@ -39,6 +39,19 @@ def GroupNorm(x, group, gamma_initializer=tf.constant_initializer(1.)):
     out = tf.nn.batch_normalization(x, mean, var, beta, gamma, 1e-5, name='output')
     return tf.reshape(out, orig_shape, name='output')
 
+def Max_Pool(name,
+            input_, 
+            param=2,
+            padding='SAME'):
+    
+    ksize=[1,param,param,1]
+    strides=[1,param,param,1]
+    
+    return tf.nn.max_pool(input_, 
+            ksize=ksize, strides=strides, 
+            padding=padding, name=name)
+    
+
 def Spec_FullyConnected(name, 
             input_, output_dim, use_bias=True, 
             bias_start=0., stddev=0.01, sn=True):
