@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 # File: utils_args.py
 
-# Parsing arguments code for Wearkly-Supervised Object Localization (WSOL).
+# Parsing arguments code for SN-VGG (GAP).
 
 
 import cv2
