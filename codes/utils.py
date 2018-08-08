@@ -128,10 +128,15 @@ def fbresnet_augmentor(isTrain, option):
         augmentors.extend(basic)
 
     else:
-        augmentors = [
-            imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
-            imgaug.CenterCrop((option.final_size, option.final_size)),
-        ]
+        if option.final_size == 64:
+            augmentors = [
+                imgaug.CenterCrop((option.final_size,option.final_size))
+            ]
+        elif option.final_size == 224:
+            augmentors = [
+                imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
+                imgaug.CenterCrop((option.final_size, option.final_size)),
+            ]
     return augmentors
 
 
