@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
-# File: CAM-resnet-HaS.py
+# File: main.py
 
 # This code is mainly borrowed from the official example codes of tensorpack library.
 # https://github.com/ppwwyyxx/tensorpack/tree/master/examples
 
 # Revised by Junsuk Choe <skykite@yonsei.ac.kr>
-# Class Activation Mapping (CAM) based on pre-activation residual net
-# Hide-and-Seek implementation for kakao second coding interview.
+# SN-VGG (GAP)
 
 
 import cv2

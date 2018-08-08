@@ -3,7 +3,7 @@
 # File: utils.py
 
 # Written by Junsuk Choe <skykite@yonsei.ac.kr>
-# Utility code for Wearkly-Supervised Object Localization (WSOL).
+# Utility code for SN-VGG (GAP).
 
 
 import cv2

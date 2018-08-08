@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-# File: resnet_model.py
+# File: ops.py
+
+# Written by Junsuk Choe <skykite@yonsei.ac.kr>
+# Ops code for SN-VGG (GAP).
 
 import tensorflow as tf
 

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-# File: vgg_model.py
+# File: models_vgg.py
+
+# Written by Junsuk Choe <skykite@yonsei.ac.kr>
+# Model architecture code for SN-VGG (GAP).
 
 import tensorflow as tf
 
