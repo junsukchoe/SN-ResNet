@@ -39,6 +39,9 @@ def GroupNorm(x, group, gamma_initializer=tf.constant_initializer(1.)):
     out = tf.nn.batch_normalization(x, mean, var, beta, gamma, 1e-5, name='output')
     return tf.reshape(out, orig_shape, name='output')
 
+def Relu(name, input_):
+    return tf.nn.relu(input_, name=name)
+
 def Max_Pool(name,
             input_, 
             param=2,
@@ -46,7 +49,7 @@ def Max_Pool(name,
     
     ksize=[1,param,param,1]
     strides=[1,param,param,1]
-    
+
     return tf.nn.max_pool(input_, 
             ksize=ksize, strides=strides, 
             padding=padding, name=name)
