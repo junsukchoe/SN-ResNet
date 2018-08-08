@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 # File: utils.py
 
-# Written by Junsuk Choe <skykite@yonsei.ac.kr>
 # Utility code for SN-VGG (GAP).
 
 

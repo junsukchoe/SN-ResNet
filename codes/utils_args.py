@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 # File: utils_args.py
 
-# Written by Junsuk Choe <skykite@yonsei.ac.kr>
 # Parsing arguments code for Wearkly-Supervised Object Localization (WSOL).
 
 
