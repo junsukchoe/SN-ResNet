@@ -27,7 +27,10 @@ def get_data(train_or_test, option):
     isTrain = train_or_test == 'train'
 
     datadir = option.data
-    ds = dataset.ILSVRC12(datadir, train_or_test, shuffle=isTrain)
+    if option.final_size == 64:
+        ds = dataset.tinyImagenetHaS(datadir, train_or_test, 'all', shuffle=isTrain)
+    elif option.final_size == 224:
+        ds = dataset.ILSVRC12(datadir, train_or_test, shuffle=isTrain)
     augmentors = fbresnet_augmentor(isTrain, option=option)
     augmentors.append(imgaug.ToUint8())
     ds = AugmentImageComponent(ds, augmentors, copy=False)
@@ -125,10 +128,15 @@ def fbresnet_augmentor(isTrain, option):
         augmentors.extend(basic)
 
     else:
-        augmentors = [
-            imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
-            imgaug.CenterCrop((option.final_size, option.final_size)),
-        ]
+        if option.final_size == 64:
+            augmentors = [
+                imgaug.CenterCrop((option.final_size,option.final_size))
+            ]
+        elif option.final_size == 224:
+            augmentors = [
+                imgaug.ResizeShortestEdge(256, cv2.INTER_CUBIC),
+                imgaug.CenterCrop((option.final_size, option.final_size)),
+            ]
     return augmentors
 
 
