@@ -70,7 +70,7 @@ def Spec_Conv2D(name,
     with tf.variable_scope(name):
         w = tf.get_variable('W', 
                 [kernel_shape, kernel_shape, input_.get_shape()[-1], output_dim],
-              initializer=tf.truncated_normal_initializer(stddev=stddev))
+              initializer=tf.variance_scaling_initializer(scale=2.))
         if sn==True:
             conv = tf.nn.conv2d(input_, 
                 spectral_norm(w), strides=[1, stride, stride, 1], padding=padding)
