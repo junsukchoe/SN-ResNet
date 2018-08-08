@@ -36,9 +36,13 @@ from models_vgg import *
 class Model(ModelDesc):
     def inputs(self):
         return [tf.placeholder(tf.uint8, [None, args.final_size, args.final_size, 3], 'input'),
-                tf.placeholder(tf.int32, [None], 'label')]
+            tf.placeholder(tf.int32, [None], 'label'),
+            tf.placeholder(tf.int32, [None], 'xa'),
+            tf.placeholder(tf.int32, [None], 'ya'),
+            tf.placeholder(tf.int32, [None], 'xb'),
+            tf.placeholder(tf.int32, [None], 'yb')]
 
-    def build_graph(self, image, label):
+    def build_graph(self, image, label, xa, ya, xb, yb):
         image = image_preprocess(image, bgr=True) # image = (image - image_mean) / image_std
 
         logits = vgg_gap(image, args)
