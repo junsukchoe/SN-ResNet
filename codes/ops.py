@@ -64,7 +64,7 @@ def Spec_FullyConnected(name,
 
 def Spec_Conv2D(name, 
             input_, output_dim, kernel_shape=3, stride=1, 
-            use_bias=True, stddev=0.02, sn=True, padding='SAME'):
+            use_bias=True, sn=True, padding='SAME'):
     if sn:
         print('Spectral Normalization Activated.')
     with tf.variable_scope(name):
