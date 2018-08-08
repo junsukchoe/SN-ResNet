@@ -35,8 +35,16 @@ from models_vgg import *
 
 class Model(ModelDesc):
     def inputs(self):
-        return [tf.placeholder(tf.uint8, [None, args.final_size, args.final_size, 3], 'input'),
-                tf.placeholder(tf.int32, [None], 'label')]
+        if args.final_size == 224:
+            return [tf.placeholder(tf.uint8, [None, args.final_size, args.final_size, 3], 'input'),
+                    tf.placeholder(tf.int32, [None], 'label')]
+        elif args.final_size == 64:
+            return [tf.placeholder(tf.uint8, [None, args.final_size, args.final_size, 3], 'input'),
+                tf.placeholder(tf.int32, [None], 'label'),
+                tf.placeholder(tf.int32, [None], 'xa'),
+                tf.placeholder(tf.int32, [None], 'ya'),
+                tf.placeholder(tf.int32, [None], 'xb'),
+                tf.placeholder(tf.int32, [None], 'yb')]
 
     def build_graph(self, image, label):
         image = image_preprocess(image, bgr=True) # image = (image - image_mean) / image_std
