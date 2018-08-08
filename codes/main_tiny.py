@@ -45,7 +45,7 @@ class Model(ModelDesc):
     def build_graph(self, image, label, xa, ya, xb, yb):
         image = image_preprocess(image, bgr=True) # image = (image - image_mean) / image_std
 
-        logits = vgg_gap(image, args)
+        logits = vgg_gap_tiny(image, args)
         loss = compute_loss_and_error(logits, label)
         wd_cost = regularize_cost('.*/W', l2_regularizer(5e-4), name='l2_regularize_loss')
         
