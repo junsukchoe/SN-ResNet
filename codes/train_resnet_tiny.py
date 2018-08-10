@@ -57,8 +57,6 @@ class Model(ModelDesc):
         convmaps = Spec_Conv2D('conv0', image, 64, 7, stride=1, sn=args.sn)
         convmaps = batch_norm_resnet(convmaps, isTrain, 'bnfirst')
         convmaps = tf.nn.relu(convmaps, 'relufirst')
-
-        convmaps = Spec_Conv2D('conv0', image, 64, 7, stride)
         #convmaps = MaxPooling('pool0', convmaps, 3, strides=2, padding='SAME') # 32x32
         convmaps = preresnet_group(
                 'group0', convmaps, 64, defs[0], 1, isTrain, args.sn) # 32x32
