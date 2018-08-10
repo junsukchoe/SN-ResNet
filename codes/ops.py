@@ -53,7 +53,17 @@ def Max_Pool(name,
     return tf.nn.max_pool(input_, 
             ksize=ksize, strides=strides, 
             padding=padding, name=name)
-    
+
+def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
+    return tf.contrib.layers.batch_norm(
+        input_,
+        decay=0.9,
+        updates_collections=None,
+        epsilon=epsilon,
+        scale=True,
+        fused=False,  # Interesting.
+        is_training=is_training,
+        scope=scope)    
 
 def Spec_FullyConnected(name, 
             input_, output_dim, use_bias=True, 
@@ -86,7 +96,7 @@ def Spec_Conv2D(name,
     with tf.variable_scope(name):
         w = tf.get_variable('W', 
                 [kernel_shape, kernel_shape, input_.get_shape()[-1], output_dim],
-              initializer=tf.variance_scaling_initializer(scale=2.))
+              initializer=tf.variance_scaling_initializer(scale=2., mode='fan_out'))
         if sn==True:
             conv = tf.nn.conv2d(input_, 
                 spectral_norm(w), strides=[1, stride, stride, 1], padding=padding)
