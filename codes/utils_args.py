@@ -36,6 +36,10 @@ def get_args():
     parser.add_argument('--steps', help='steps_per_epoch', default=5000, type=int)
     parser.add_argument('--final-size', type=int, default=224)
 
+    # Heatmap
+    parser.add_argument('--cam', action='store_true')
+    parser.add_argument('--gradcam', action='store_true')
+
     # Training
     parser.add_argument('--batch', help='enter batch size to use', default=256)
     parser.add_argument('--sn', action='store_true')
