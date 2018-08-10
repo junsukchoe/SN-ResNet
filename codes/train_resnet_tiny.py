@@ -54,7 +54,7 @@ class Model(ModelDesc):
         }
         defs = cfg[DEPTH]
 
-        convmaps = Spec_Conv2D('conv0', image, 64, 7, stride=1, args.sn)
+        convmaps = Spec_Conv2D('conv0', image, 64, 7, stride=1, sn=args.sn)
         convmaps = batch_norm_resnet(convmaps, isTrain, 'bnfirst')
         convmaps = tf.nn.relu(convmaps, 'relufirst')
 
@@ -69,7 +69,7 @@ class Model(ModelDesc):
         convmaps_target = preresnet_group(
                 'group3new', convmaps, 512, defs[3], 1, isTrain, args.sn)
         convmaps_gap = tf.reduce_mean(convmaps_target, [1,2], name='gap')
-        logits = Spec_FullyConnected('linearnew', convmaps_gap, 200)
+        logits = Spec_FullyConnected('linearnew', convmaps_gap, 200, sn=args.sn)
 
         activation_map = tf.identity(convmaps_target, name='actmap')
         y_c = tf.reduce_sum(tf.multiply(logits, label_onehot), axis=1)

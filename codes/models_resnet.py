@@ -9,7 +9,7 @@ from ops import *
 def resnet_shortcut(l, n_out, stride, sn):
     n_in = l.get_shape().as_list()[3]
     if n_in != n_out:   # change dimension when channel is not the same
-        return Spec_Conv2D('convshortcut', l, n_out, 1, stride, sn)
+        return Spec_Conv2D('convshortcut', l, n_out, 1, stride, sn=sn)
     else:
         return l
 
@@ -26,10 +26,10 @@ def apply_preactivation(l, preact, isTrain):
 
 def preresnet_basicblock(l, ch_out, stride, preact, isTrain, sn):
     l, shortcut = apply_preactivation(l, preact, isTrain)
-    l = Spec_Conv2D('conv1', l, ch_out, 3, stride, sn)
+    l = Spec_Conv2D('conv1', l, ch_out, 3, stride, sn=sn)
     l = batch_norm_resnet(l, isTrain, 'bn1')
     l = tf.nn.relu(l, 'relu1')
-    l = Spec_Conv2D('conv2', l, ch_out, 3, 1, sn)
+    l = Spec_Conv2D('conv2', l, ch_out, 3, 1, sn=sn)
     return l + resnet_shortcut(shortcut, ch_out, stride, sn)
 
 
