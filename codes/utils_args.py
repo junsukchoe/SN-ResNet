@@ -36,9 +36,9 @@ def get_args():
     parser.add_argument('--steps', help='steps_per_epoch', default=5000, type=int)
     parser.add_argument('--final-size', type=int, default=224)
 
-    # Heatmap
-    parser.add_argument('--cam', action='store_true')
-    parser.add_argument('--gradcam', action='store_true')
+    # ResNet
+    parser.add_argument('--depth', help='enter model to use, 18 or 34', type=int, default=18)
+    parser.add_argument('--heatsize', help='heatmap_size', type=int, default=8)
 
     # Training
     parser.add_argument('--batch', help='enter batch size to use', default=256)
@@ -50,7 +50,8 @@ def get_args():
     # Test
     parser.add_argument('--load', help='load model')
     parser.add_argument('--eval', help='test', action='store_true')
-
+    parser.add_argument('--cam', action='store_true')
+    parser.add_argument('--gradcam', action='store_true')
 
     global args
     args = parser.parse_args()
