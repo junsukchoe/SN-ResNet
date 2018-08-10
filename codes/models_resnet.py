@@ -7,6 +7,7 @@ from ops import *
 
 
 def resnet_shortcut(l, n_out, stride, sn):
+    n_in = l.get_shape().as_list()[3]
     if n_in != n_out:   # change dimension when channel is not the same
         return Spec_Conv2D('convshortcut', l, n_out, 1, stride, sn)
     else:
