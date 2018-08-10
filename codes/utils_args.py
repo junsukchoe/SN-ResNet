@@ -38,7 +38,6 @@ def get_args():
 
     # ResNet
     parser.add_argument('--depth', help='enter model to use, 18 or 34', type=int, default=18)
-    parser.add_argument('--heatsize', help='heatmap_size', type=int, default=8)
 
     # Training
     parser.add_argument('--batch', help='enter batch size to use', default=256)
