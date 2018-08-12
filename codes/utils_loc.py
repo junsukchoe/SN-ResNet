@@ -59,7 +59,7 @@ def cam(model, option, gradcam=False):
             wrongs, convmaps, grads_val = outp
             batch = wrongs.shape[0]
             NUMBER,HEIGHT,WIDTH,CHANNEL = np.shape(convmaps)  
-            grads_val = np.transpose(grads_val, [0,2,3,1])
+            #grads_val = np.transpose(grads_val, [0,2,3,1])
             W = np.mean(grads_val, axis=(1,2))
         else:
             wrongs, convmaps, W = outp
