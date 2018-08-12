@@ -58,13 +58,13 @@ def cam(model, option, gradcam=False):
         if gradcam:
             wrongs, convmaps, grads_val = outp
             batch = wrongs.shape[0]
-            NUMBER,CHANNEL,HEIGHT,WIDTH = np.shape(convmaps)  
+            NUMBER,HEIGHT,WIDTH,CHANNEL = np.shape(convmaps)  
             grads_val = np.transpose(grads_val, [0,2,3,1])
             W = np.mean(grads_val, axis=(1,2))
         else:
             wrongs, convmaps, W = outp
             batch = wrongs.shape[0]     
-            NUMBER,CHANNEL,HEIGHT,WIDTH = np.shape(convmaps)       
+            NUMBER,HEIGHT,WIDTH,CHANNEL = np.shape(convmaps)       
 
         for i in range(batch):
             # generating heatmap
