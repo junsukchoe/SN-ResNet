@@ -47,7 +47,6 @@ class Model(ModelDesc):
 
         ctx = get_current_tower_context()
         isTrain = ctx.is_training
-        print(isTrain)
         
         cfg = {
             18: ([2, 2, 2, 2]),
