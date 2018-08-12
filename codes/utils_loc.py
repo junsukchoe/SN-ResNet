@@ -39,7 +39,7 @@ def cam(model, option, gradcam=False):
             model=model,
             session_init=get_model_loader(model_file),
             input_names=['input', 'label','xa','ya','xb','yb'],
-            output_names=['wrong-top1', 'group3new/bnlast/Relu', 'linearnew/W'],
+            output_names=['wrong-top1', 'relulast', 'linearnew/W'],
             return_input=True
         )
     
