@@ -74,19 +74,17 @@ def Spec_FullyConnected(name,
         w = tf.get_variable("W",
                     [shape[1], output_dim], tf.float32,
                     tf.random_normal_initializer(stddev=stddev))
+        
+        if sn:
+            w = spectral_norm(w)
+
         if use_bias:
             bias = tf.get_variable("b", [output_dim],
                                     initializer=tf.constant_initializer(bias_start))
-            if sn==True:
-                mul = tf.matmul(input_, spectral_norm(w)) + bias
-            else:
-                mul = tf.matmul(input_, w) + bias
+            mul = tf.matmul(input_, w) + bias
         else:
-            if sn==True:
-                mul = tf.matmul(input_, spectral_norm(w))
-            else:
-                mul = tf.matmul(input_, w)
-        return mul
+            mul = tf.matmul(input_, w)
+        return mul, w
 
 def Spec_Conv2D(name, 
             input_, output_dim, kernel_shape=3, stride=1, 
