@@ -36,6 +36,7 @@ def get_args():
     parser.add_argument('--steps', help='steps_per_epoch', default=5000, type=int)
     parser.add_argument('--final-size', type=int, default=224)
     parser.add_argument('--valnum',type=int, default=10000)
+    parser.add_argument('--dataname', help='dataset name', default='all')
     
     # ResNet
     parser.add_argument('--depth', help='enter model to use, 18 or 34', type=int, default=18)
