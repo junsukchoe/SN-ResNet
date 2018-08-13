@@ -55,6 +55,9 @@ def Max_Pool(name,
             padding=padding, name=name)
 
 def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
+    return BatchNorm(input_)
+'''    
+def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
     return tf.contrib.layers.batch_norm(
         input_,
         decay=0.9,
@@ -64,7 +67,7 @@ def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
         fused=False,  # Interesting.
         is_training=is_training,
         scope=scope)    
-
+'''
 def Spec_FullyConnected(name, 
             input_, output_dim, use_bias=True, 
             bias_start=0., stddev=0.01, sn=True):
