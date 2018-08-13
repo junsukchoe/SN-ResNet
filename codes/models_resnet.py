@@ -2,7 +2,7 @@
 # File: resnet_model.py
 
 import tensorflow as tf
-
+from tensorpack import *
 
 
 def resnet_shortcut(l, n_out, stride, sn):
