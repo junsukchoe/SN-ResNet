@@ -73,7 +73,7 @@ def Spec_FullyConnected(name,
     with tf.variable_scope(name):
         w = tf.get_variable("W",
                     [shape[1], output_dim], tf.float32,
-                    tf.random_normal_initializer(stddev=stddev))
+                    tf.contrib.layers.variance_scaling_initializer(2.0))
         
         if sn:
             w = spectral_norm(w)
