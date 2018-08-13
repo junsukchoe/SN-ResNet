@@ -71,7 +71,7 @@ class Model(ModelDesc):
             convmaps_gap = tf.reduce_mean(convmaps_target, [1,2], name='gap')
             logits = FullyConnected('linearnew', convmaps_gap, 200)
 
-        weights = tf.identity(w, name='linearweight')
+        #weights = tf.identity(w, name='linearweight')
         activation_map = tf.identity(convmaps_target, name='actmap')
         y_c = tf.reduce_sum(tf.multiply(logits, label_onehot), axis=1)
         target_conv_layer_grad = tf.identity(
