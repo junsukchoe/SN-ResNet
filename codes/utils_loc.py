@@ -43,8 +43,10 @@ def cam(model, option, gradcam=False):
             return_input=True
         )
     
-    meta = dataset.tinyImagenetHaSMeta(dir=option.data).get_synset_words_1000(option.dataname)
-    meta_labels = dataset.tinyImagenetHaSMeta(dir=option.data).get_synset_1000(option.dataname)
+    meta = dataset.tinyImagenetHaSMeta(
+        dir=option.data).get_synset_words_1000(option.dataname)
+    meta_labels = dataset.tinyImagenetHaSMeta(
+        dir=option.data).get_synset_1000(option.dataname)
 
     pred = SimpleDatasetPredictor(pred_config, ds)
     

@@ -104,11 +104,10 @@ def Spec_Conv2D(name,
         else:
             conv = tf.nn.conv2d(input_, 
                 w, strides=[1, stride, stride, 1], padding=padding)
-
-        biases = tf.get_variable('b', 
-            [output_dim], initializer=tf.constant_initializer(0.0))
         
         if use_bias == True:
+            biases = tf.get_variable('b', 
+                    [output_dim], initializer=tf.constant_initializer(0.0))
             conv = tf.nn.bias_add(conv, biases)
 
         return conv
