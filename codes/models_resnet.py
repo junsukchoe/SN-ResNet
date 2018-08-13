@@ -3,13 +3,12 @@
 
 import tensorflow as tf
 
-from ops import *
 
 
 def resnet_shortcut(l, n_out, stride, sn):
     n_in = l.get_shape().as_list()[3]
     if n_in != n_out:   # change dimension when channel is not the same
-        return Spec_Conv2D('convshortcut', l, n_out, 1, stride, sn=sn)
+        return Conv2D('convshortcut', l, n_out, 1, stride, use_bias=False)
     else:
         return l
 
@@ -17,7 +16,7 @@ def resnet_shortcut(l, n_out, stride, sn):
 def apply_preactivation(l, preact, isTrain):
     if preact == 'bnrelu':
         shortcut = l    # preserve identity mapping
-        l = batch_norm_resnet(l, isTrain, 'prebn')
+        l = BatchNorm('prebn',l)
         l = tf.nn.relu(l, 'preact')
     else:
         shortcut = l
@@ -26,10 +25,10 @@ def apply_preactivation(l, preact, isTrain):
 
 def preresnet_basicblock(l, ch_out, stride, preact, isTrain, sn):
     l, shortcut = apply_preactivation(l, preact, isTrain)
-    l = Spec_Conv2D('conv1', l, ch_out, 3, stride, sn=sn)
-    l = batch_norm_resnet(l, isTrain, 'bn1')
+    l = Conv2D('conv1', l, ch_out, 3, stride, use_bias=False)
+    l = BatchNorm('bn1', l)
     l = tf.nn.relu(l, 'relu1')
-    l = Spec_Conv2D('conv2', l, ch_out, 3, 1, sn=sn)
+    l = Conv2D('conv2', l, ch_out, 3, 1, use_bias=False)
     return l + resnet_shortcut(shortcut, ch_out, stride, sn)
 
 
@@ -42,7 +41,7 @@ def preresnet_group(name, l, features, count, stride, isTrain, sn):
                                stride if i == 0 else 1,
                                'no_preact' if i == 0 else 'bnrelu', isTrain, sn)
         # end of each group need an extra activation
-        l = batch_norm_resnet(l, isTrain, 'bnlast')
+        l = BatchNorm('bnlast', l)
         l = tf.nn.relu(l, 'relulast')
     return l
 

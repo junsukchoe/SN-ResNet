@@ -29,7 +29,6 @@ from tensorpack.tfutils.tower import get_current_tower_context
 from utils import *
 from utils_loc import *
 from utils_args import *
-from ops import *
 from models_resnet import *
 
 class Model(ModelDesc):
@@ -54,8 +53,8 @@ class Model(ModelDesc):
         }
         defs = cfg[DEPTH]
 
-        convmaps = Spec_Conv2D('conv0', image, 64, 7, stride=1, sn=args.sn)
-        convmaps = batch_norm_resnet(convmaps, isTrain, 'bnfirst')
+        convmaps = Conv2D('conv0', image, 64, 7, stride=1, use_bias=False)
+        convmaps = BatchNorm('bnfirst', convmaps)
         convmaps = tf.nn.relu(convmaps, 'relufirst')
         #convmaps = MaxPooling('pool0', convmaps, 3, strides=2, padding='SAME') # 32x32
         convmaps = preresnet_group(
@@ -67,7 +66,7 @@ class Model(ModelDesc):
         convmaps_target = preresnet_group(
                 'group3new', convmaps, 512, defs[3], 1, isTrain, args.sn)
         convmaps_gap = tf.reduce_mean(convmaps_target, [1,2], name='gap')
-        logits, w = Spec_FullyConnected('linearnew', convmaps_gap, 200, sn=args.sn)
+        logits, w = FullyConnected('linearnew', convmaps_gap, 200)
 
         weights = tf.identity(w, name='linearweight')
         activation_map = tf.identity(convmaps_target, name='actmap')
