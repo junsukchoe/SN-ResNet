@@ -69,7 +69,7 @@ class Model(ModelDesc):
             convmaps_target = preresnet_group(
                     'group3new', convmaps, 512, defs[3], 1, isTrain, args.sn)
             convmaps_gap = tf.reduce_mean(convmaps_target, [1,2], name='gap')
-            logits, w = FullyConnected('linearnew', convmaps_gap, 200)
+            logits = FullyConnected('linearnew', convmaps_gap, 200)
 
         weights = tf.identity(w, name='linearweight')
         activation_map = tf.identity(convmaps_target, name='actmap')
