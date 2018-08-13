@@ -56,7 +56,7 @@ class Model(ModelDesc):
                             kernel_initializer=
                                 tf.variance_scaling_initializer(
                                     scale=2.0, mode='fan_out')):
-            convmaps = Conv2D('conv0', image, 64, 7, stride=1)
+            convmaps = Conv2D('conv0', image, 64, 7, strides=1)
             convmaps = BatchNorm('bnfirst', convmaps)
             convmaps = tf.nn.relu(convmaps, 'relufirst')
             #convmaps = MaxPooling('pool0', convmaps, 3, strides=2, padding='SAME') # 32x32

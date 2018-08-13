@@ -2,13 +2,16 @@
 # File: resnet_model.py
 
 import tensorflow as tf
-from tensorpack import *
+from tensorpack.tfutils.tower import get_current_tower_context
+from tensorpack.tfutils.argscope import argscope, get_arg_scope
+from tensorpack.models import (
+    Conv2D, MaxPooling, GlobalAvgPooling, BatchNorm, BNReLU, FullyConnected)
 
 
 def resnet_shortcut(l, n_out, stride, sn):
     n_in = l.get_shape().as_list()[3]
     if n_in != n_out:   # change dimension when channel is not the same
-        return Conv2D('convshortcut', l, n_out, 1, stride)
+        return Conv2D('convshortcut', l, n_out, 1, strides=stride)
     else:
         return l
 
@@ -25,10 +28,10 @@ def apply_preactivation(l, preact, isTrain):
 
 def preresnet_basicblock(l, ch_out, stride, preact, isTrain, sn):
     l, shortcut = apply_preactivation(l, preact, isTrain)
-    l = Conv2D('conv1', l, ch_out, 3, stride)
+    l = Conv2D('conv1', l, ch_out, 3, strides=stride)
     l = BatchNorm('bn1', l)
     l = tf.nn.relu(l, 'relu1')
-    l = Conv2D('conv2', l, ch_out, 3, 1)
+    l = Conv2D('conv2', l, ch_out, 3)
     return l + resnet_shortcut(shortcut, ch_out, stride, sn)
 
 
