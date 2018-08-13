@@ -55,7 +55,7 @@ def Max_Pool(name,
             padding=padding, name=name)
 
 def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
-    return BatchNorm(input_)
+    return BatchNorm(scope, input_)
 '''    
 def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
     return tf.contrib.layers.batch_norm(
