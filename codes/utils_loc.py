@@ -78,7 +78,7 @@ def cam(model, option, gradcam=False):
             else:
                 weight = W[:, [labels[i]]].T
             convmap = convmaps[i, :, :, :]  # c x h x w
-            mergedmap = np.matmul(weight, convmap.reshape((CHANNEL, -1))).reshape(HEIGHT, WIDTH)
+            mergedmap = np.matmul(weight, convmap.reshape((-1,CHANNEL)).T).reshape(HEIGHT, WIDTH)
             #mergedmap = np.maximum(mergedmap, 0)
             if gradcam:
                 mergedmap = np.maximum(mergedmap, 0)
