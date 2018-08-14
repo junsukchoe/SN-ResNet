@@ -69,7 +69,7 @@ def batch_norm_resnet(input_, is_training, scope, epsilon=1e-5):
         scope=scope)    
 '''
 def Spec_FullyConnected(name, 
-            input_, output_dim, use_bias=True, 
+            input_, output_dim, use_bias=False, 
             bias_start=0., stddev=0.01, sn=True):
     shape = input_.get_shape().as_list()
 

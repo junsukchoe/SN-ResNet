@@ -59,14 +59,16 @@ def cam(model, option, gradcam=False):
 
         if gradcam:
             wrongs, convmaps, grads_val = outp
+            convmaps = np.transpose(convmaps, [0,3,1,2])
             batch = wrongs.shape[0]
-            NUMBER,HEIGHT,WIDTH,CHANNEL = np.shape(convmaps)  
+            NUMBER,CHANNEL,HEIGHT,WIDTH = np.shape(convmaps)   
             #grads_val = np.transpose(grads_val, [0,2,3,1])
             W = np.mean(grads_val, axis=(1,2))
         else:
             wrongs, convmaps, W = outp
+            convmaps = np.transpose(convmaps, [0,3,1,2])
             batch = wrongs.shape[0]     
-            NUMBER,HEIGHT,WIDTH,CHANNEL = np.shape(convmaps)       
+            NUMBER,CHANNEL,HEIGHT,WIDTH = np.shape(convmaps)         
 
         for i in range(batch):
             # generating heatmap
@@ -78,7 +80,7 @@ def cam(model, option, gradcam=False):
             else:
                 weight = W[:, [labels[i]]].T
             convmap = convmaps[i, :, :, :]  # c x h x w
-            mergedmap = np.matmul(weight, convmap.reshape((-1,CHANNEL)).T).reshape(HEIGHT, WIDTH)
+            mergedmap = np.matmul(weight, convmap.reshape((CHANNEL, -1))).reshape(HEIGHT, WIDTH)
             #mergedmap = np.maximum(mergedmap, 0)
             if gradcam:
                 mergedmap = np.maximum(mergedmap, 0)
@@ -131,7 +133,7 @@ def cam(model, option, gradcam=False):
             if not os.path.isdir(dirname):
                 os.mkdir(dirname)
             
-            if cnt < 500:
+            if cnt < 50:
                 cv2.imwrite('result/{}/cam{}-{}.jpg'.format(option.logdir, cnt, classname), concat)
                 
             cnt += 1
